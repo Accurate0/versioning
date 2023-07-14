@@ -100,14 +100,14 @@ fn main() -> Result<(), anyhow::Error> {
     let mut minor = 1;
     let mut patch = 0;
 
-    for commit_id in &all_matching_commits {
+    for (i, commit_id) in all_matching_commits.iter().enumerate() {
         let commit = repo.find_commit(*commit_id)?;
         let message = commit.message().unwrap_or_default();
         if major_regex.is_match(message) {
             major += 1;
         } else if minor_regex.is_match(message) {
             minor += 1;
-        } else if all_matching_commits.len() > 1 {
+        } else if i != 0 {
             patch += 1;
         }
     }
