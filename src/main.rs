@@ -97,17 +97,17 @@ fn main() -> Result<(), anyhow::Error> {
     let minor_regex = Regex::new(&args.minor_regex).context("minor-regex did not compile")?;
 
     let mut major = 0;
-    let mut minor = 0;
+    let mut minor = 1;
     let mut patch = 0;
 
-    for commit_id in all_matching_commits {
-        let commit = repo.find_commit(commit_id)?;
+    for commit_id in &all_matching_commits {
+        let commit = repo.find_commit(*commit_id)?;
         let message = commit.message().unwrap_or_default();
         if major_regex.is_match(message) {
             major += 1;
         } else if minor_regex.is_match(message) {
             minor += 1;
-        } else {
+        } else if all_matching_commits.len() > 1 {
             patch += 1;
         }
     }
