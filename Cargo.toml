@@ -1,0 +1,13 @@
+[package]
+name = "versioning"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.71"
+clap = { version = "4.3.12", features = ["derive"] }
+git2 = "0.17.2"
+regex = "1.9.1"
+semver = "1.0.17"
+tracing = "0.1.37"
+tracing-subscriber = "0.3.17"
