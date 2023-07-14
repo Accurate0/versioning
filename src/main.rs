@@ -130,7 +130,7 @@ fn main() -> Result<(), anyhow::Error> {
         pre: if is_main_branch {
             Prerelease::EMPTY
         } else {
-            Prerelease::new(&sanitized_branch_name).context("invalid prerelease text")?
+            Prerelease::new(&sanitized_branch_name)?
         },
         build: if is_main_branch {
             BuildMetadata::EMPTY
