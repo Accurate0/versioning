@@ -103,6 +103,7 @@ fn main() -> Result<(), anyhow::Error> {
 
     // TODO: currently only works for squash commits to main
     // TODO: need to handle Merge commit regex too
+    // TODO: always ignore first commit
     for (i, commit_id) in all_matching_commits.iter().enumerate() {
         let commit = repo.find_commit(*commit_id)?;
         let message = commit.message().unwrap_or_default();
