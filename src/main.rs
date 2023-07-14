@@ -100,6 +100,8 @@ fn main() -> Result<(), anyhow::Error> {
     let mut minor = 1;
     let mut patch = 0;
 
+    // TODO: currently only works for squash commits to main
+    // TODO: need to handle Merge commit regex too
     for (i, commit_id) in all_matching_commits.iter().enumerate() {
         let commit = repo.find_commit(*commit_id)?;
         let message = commit.message().unwrap_or_default();
