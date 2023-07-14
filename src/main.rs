@@ -47,6 +47,7 @@ pub fn get_parent_commit_diff(
     Ok(diff)
 }
 
+// TODO: add CI
 fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::INFO)
