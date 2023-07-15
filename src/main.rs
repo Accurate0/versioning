@@ -61,7 +61,7 @@ fn main() -> Result<(), anyhow::Error> {
 
     let repo = Repository::open(args.repo)?;
     let mut revwalk = repo.revwalk()?;
-    revwalk.set_sorting(Sort::TOPOLOGICAL)?;
+    revwalk.set_sorting(Sort::TOPOLOGICAL | Sort::REVERSE)?;
     revwalk.push_head()?;
 
     let mut all_matching_commits = Vec::new();
@@ -103,15 +103,15 @@ fn main() -> Result<(), anyhow::Error> {
 
     // TODO: currently only works for squash commits to main
     // TODO: need to handle Merge commit regex too
-    // TODO: always ignore first commit
-    for (i, commit_id) in all_matching_commits.iter().enumerate() {
+    let all_matching_commits = all_matching_commits.iter().skip(1);
+    for commit_id in all_matching_commits {
         let commit = repo.find_commit(*commit_id)?;
         let message = commit.message().unwrap_or_default();
         if major_regex.is_match(message) {
             major += 1;
         } else if minor_regex.is_match(message) {
             minor += 1;
-        } else if i != 0 {
+        } else {
             patch += 1;
         }
     }
