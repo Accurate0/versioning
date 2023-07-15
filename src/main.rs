@@ -5,6 +5,7 @@ use versioning::get_version;
 mod args;
 
 // TODO: add CI
+// TODO: trim initial ./ if it's set for --path
 fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::INFO)
